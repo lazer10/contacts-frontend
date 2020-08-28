@@ -1,17 +1,16 @@
 import axios, { config } from '..';
 import { 
-    FETCH_CONTACTS_SUCCESS, FETCH_CONTACTS_FAILED
+    ADD_CONTACTS_SUCCESS, ADD_CONTACTS_FAILED
  } from '../../actionTypes';
 
- export default () => async (dispatch) => {
+ export default (body) => async (dispatch) => {
      try {
-         const response = await axios.get('/contacts', config);
-         const { data: { message, data } } = response;
+         const response = await axios.post('/contacts/new',body, config);
+         const { data: { message } } = response;
 
          dispatch({
-             type: FETCH_CONTACTS_SUCCESS,
+             type: ADD_CONTACTS_SUCCESS,
              message,
-             results: data,
          });
      } catch (err) {
          let error = {};
@@ -26,7 +25,7 @@ import {
                  message: err.message,
              };
          }
-         dispatch({ type: FETCH_CONTACTS_FAILED, error });
+         dispatch({ type: ADD_CONTACTS_FAILED, error });
          console.log(err);
      }
  };
