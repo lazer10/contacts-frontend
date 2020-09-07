@@ -68,8 +68,8 @@ const AddContacts = ({ addContactsAction, addContacts }) => {
 };
 
 AddContacts.propTypes = {
-  fetchContactsAction: PropTypes.func.isRequired,
-  fetchContacts: PropTypes.object.isRequired,
+  addContactsAction: PropTypes.func.isRequired,
+  addContacts: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ addContacts }) => ({

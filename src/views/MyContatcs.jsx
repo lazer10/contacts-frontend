@@ -1,14 +1,14 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
+import Contacts from '../components/Contacts';
 
-const Home = () => {
+const MyContacts = () => {
     return (
         <div>
             <NavBar />
-            <h1>This is Home</h1>
-            <h3>Hello There</h3>
+            <Contacts />
         </div>
     )
 }
 
-export default Home;
+export default MyContacts;

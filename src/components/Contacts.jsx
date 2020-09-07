@@ -21,19 +21,40 @@ const Contacts = ({ fetchContactsAction, fetchContacts }) => {
       setStatus('error');
     }
   }, [fetchContacts]);
-  const contactsItems = data.map((contact) => (
-    <div key={contact._id}>
-      <h3>{contact.name}</h3>
-      <p>{contact.phone_number}</p>
-      <p>{contact.address}</p>
-    </div>
-  ));
+  // const contactsItems = data.map((contact) => (
+  //   <div key={contact._id}>
+  //     <h3>{contact.name}</h3>
+  //     <p>{contact.phone_number}</p>
+  //     <p>{contact.address}</p>
+  //   </div>
+  // ));
   return (
-    <div>
-      <h1>Contatc</h1>
-      {contactsItems}
-    </div>
-  );
+    //Start
+    <>
+    {data.map((contact) => (
+      <div key={contact._id}>
+        <div className="container">
+  <table className="table table-dark">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+    <td>{contact.name}</td>
+    <td>{contact.phone_number}</td>
+    <td>{contact.address}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+      </div>
+    ))}
+    </>
+  ); // End of Return
 };
 
 Contacts.propTypes = {
