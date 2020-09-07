@@ -1,6 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const Login = () => {
+import loginAction from '../redux/actions/admin/login';
+
+const Login = ({ loginAction, login }) => {
+  const [submiting, setSubmiting] = useState(false);
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (login.status === 'success') {
+      setSubmiting(false);
+      setUserName('');
+      setPassword('');
+      console.log(login);
+      localStorage.setItem('CONTACTS_TEST', login.token);
+    }
+    if (login.status === 'failed') {
+      setSubmiting(false);
+    }
+  }, [login]);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const data = {
+      username,
+      password,
+    };
+    setSubmiting(true);
+    loginAction(data);
+  };
+
   return (
     <div>
       <h3 className="text-center text-dark mt-3">Admin Login</h3>
@@ -12,6 +43,10 @@ const Login = () => {
                 type="text"
                 className="form-control"
                 placeholder="Enter Username"
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                }}
+                value={username}
               />
             </div>
             <div className="form-group mt-3">
@@ -19,13 +54,26 @@ const Login = () => {
                 type="text"
                 className="form-control"
                 placeholder="Enter Password"
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                value={password}
               />
             </div>
             <div className="form-group mt-3">
-              <button className="btn btn-success" type="submit">
-                Login
-              </button>
+              {submiting ? (
+                <button className="btn btn-secondary" type="button" disabled>
+                  Login
+                </button>
+              ) : (
+                <button
+                  className="btn btn-success"
+                  type="submit"
+                  onClick={handleLogin}
+                >
+                  Login
+                </button>
+              )}
             </div>
           </form>
         </div>
@@ -34,4 +82,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  loginAction: PropTypes.func.isRequired,
+  login: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = ({ login }) => ({
+  login,
+});
+
+export default connect(mapStateToProps, { loginAction })(Login);
