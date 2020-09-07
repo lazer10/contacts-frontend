@@ -5,8 +5,11 @@ const Home = () => {
     return (
         <div>
             <NavBar />
-            <h1>This is Home</h1>
-            <h3>Hello There</h3>
+            <div className="headings-1 text-center mt-5">
+            <h1>Welcome to my contacts</h1>
+            <h3>Head to the navbar to explore my contacts</h3>
+            <h5>Have a fun hahahahaha</h5>
+            </div>
         </div>
     )
 }

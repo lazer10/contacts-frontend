@@ -5,7 +5,7 @@ const NavBar=()=> {
     return (
 <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
 
-<ul className="navbar-nav">
+<ul className="navbar-nav text-light mx-auto">
   <li className="nav-item">
     <NavLink exact activeClassName="active" className="nav-link" to="/">Home</NavLink>
   </li>
