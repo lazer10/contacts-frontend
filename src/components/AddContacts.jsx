@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import '../assets/styles/addContacts.scss';
 
 import addContactsAction from '../redux/actions/contacts/addContacts';
+
 const AddContacts = ({ addContactsAction, addContacts }) => {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
