@@ -7,5 +7,6 @@ export default axios.create({
 export const config = {
   headers: {
     ContentType: 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('CONTACTS_TEST')}`,
   },
 };
