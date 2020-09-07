@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import 'jquery/dist/jquery';
 import 'jquery/dist/jquery.slim';
 import 'bootstrap/dist/js/bootstrap.min';
+import './assets/styles/index.scss';
 import App from './App';
 
 ReactDOM.render(

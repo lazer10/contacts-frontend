@@ -51,6 +51,10 @@ const Contacts = ({ fetchContactsAction, fetchContacts }) => {
     </tbody>
   </table>
 </div>
+<div className="button-section text-center">
+<button type="button" className="btn btn-success">Update</button>
+<button type="button" className="btn btn-warning">Delete</button>
+</div>
       </div>
     ))}
     </>
