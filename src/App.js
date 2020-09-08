@@ -1,12 +1,17 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 import Home from './views/Home';
 import MyContacts from './views/MyContatcs';
 import AddContacts from './views/AddContact';
 import Login from './views/Login';
 import store from './redux/store';
+
+library.add(fab, fas);
 
 function App() {
   return (
