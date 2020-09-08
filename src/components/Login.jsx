@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import loginAction from '../redux/actions/admin/login';
 
@@ -10,6 +11,8 @@ const Login = ({ loginAction, login }) => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
+  const [isLoginPasswordShown, setIsLoginPasswordShown] = useState(false);
+  // const [successfulLoginMessage, setSuccessfulLoginMessage] = useState('');
 
   useEffect(() => {
     if (login.status === 'success') {
@@ -24,6 +27,10 @@ const Login = ({ loginAction, login }) => {
     }
   }, [login]);
 
+  const showLoginPassword = () => {
+    setIsLoginPasswordShown(!isLoginPasswordShown);
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
     const data = {
@@ -34,6 +41,9 @@ const Login = ({ loginAction, login }) => {
     setSubmiting(true);
     loginAction(data);
   };
+
+  const togglEye2 = isLoginPasswordShown ? 'eye-slash' : 'eye';
+  const slashColor2 = isLoginPasswordShown ? '#83bb44' : '#545458';
 
   return (
     <div>
@@ -55,14 +65,36 @@ const Login = ({ loginAction, login }) => {
             </div>
             <div className="form-group mt-3">
               <input
-                type="text"
-                className="form-control"
+                className={
+                  isLoginPasswordShown
+                    ? 'form-control dark-pwd'
+                    : 'form-control'
+                }
+                type={isLoginPasswordShown ? 'text' : 'password'}
+                style={{
+                  border: isLoginPasswordShown ? '3px' : '3px',
+                  borderRightColor: '#202020',
+                }}
+                id="login"
+                // type="text"
+                // className="form-control"
                 placeholder="Enter Password"
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
                 value={password}
+                required
               />
+              <div className="input-group-append">
+                <span className="input-group-text dark-group-text">
+                  <FontAwesomeIcon
+                    icon={['fas', togglEye2]}
+                    className="pass-icon cursor-pointer"
+                    onClick={showLoginPassword}
+                    style={{ color: slashColor2 }}
+                  />
+                </span>
+              </div>
             </div>
             <div className="form-group mt-3">
               {submiting ? (
@@ -96,6 +128,9 @@ const Login = ({ loginAction, login }) => {
                   </button>
                 </div>
               ))}
+              {/* <p className="alert alert-danger py-2 mt-2 font-smooth">
+                {successfulLoginMessage}
+              </p> */}
             </div>
           </form>
         </div>
