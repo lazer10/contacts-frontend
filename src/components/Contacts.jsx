@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import '../assets/styles/myContacts.scss';
 import fetchContactsAction from '../redux/actions/contacts/fetchContacts';
+import UpdateContact from '../components/UpdateContact';
 
 const Contacts = ({ fetchContactsAction, fetchContacts }) => {
   const [status, setStatus] = useState('initial');
@@ -12,54 +13,97 @@ const Contacts = ({ fetchContactsAction, fetchContacts }) => {
   useEffect(() => {
     if (status === 'initial') {
       fetchContactsAction();
-      setStatus('loading');
+      setStatus('fetching');
     }
     if (fetchContacts.status === 'success') {
       setStatus('success');
       setData(fetchContacts.results);
     }
     if (fetchContacts.status === 'error') {
-      setStatus('error');
+      const { error } = fetchContacts;
+      if (error.status === '404') {
+        setStatus('no_data');
+      }
+      if (error.status === '500') {
+        setStatus('network_error');
+      } else {
+        setStatus('unknown_error');
+      }
     }
   }, [fetchContacts]);
+
+  const refetch = () => {
+    fetchContactsAction();
+    setStatus('fetching');
+  };
+
+  const DisplayData = ({ children }) => {
+    let data;
+    switch (status) {
+      case 'success':
+        data = <>{children}</>;
+        break;
+      case 'fetching':
+        data = <h3>Loading...</h3>;
+        break;
+      case 'no_data':
+        data = <h3>No data found</h3>;
+        break;
+      case 'network_error':
+        data = <h3>No Network G</h3>;
+        break;
+      case 'unknown_error':
+        data = <h3>Unexpected error occured</h3>;
+        break;
+      default:
+        data = <h3>Loading...</h3>;
+        break;
+    }
+    return data;
+  };
+
   return (
     //Start
     <div>
       <h4 className="text-center text-light bg-dark mb-0 pb-1">
         Contacts List
       </h4>
-      <div className="table-1">
-        <table className="table table-dark">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone Number</th>
-              <th>Address</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((contact) => (
+      <DisplayData>
+        <div className="table-1">
+          <table className="table table-stripped">
+            <thead>
               <tr>
-                <td>{contact.name}</td>
-                <td>{contact.phone_number}</td>
-                <td>{contact.address}</td>
-                <td>
-                  <button type="button" className="btn btn-warning">
-                    Update
-                  </button>
-                </td>
-                <td>
-                  <button type="button" className="btn btn-danger">
-                    Delete
-                  </button>
-                </td>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+                <th>Edit</th>
+                <th>Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {data.map((contact) => (
+                <tr key={contact._id}>
+                  <td>{contact.name}</td>
+                  <td>{contact.phone_number}</td>
+                  <td>{contact.address}</td>
+                  <td>
+                    <UpdateContact
+                      refetch={refetch}
+                      data={contact}
+                      id={contact._id}
+                    />
+                  </td>
+                  <td>
+                    <button type="button" className="btn btn-danger">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </DisplayData>
     </div>
   ); // End of Return
 };
