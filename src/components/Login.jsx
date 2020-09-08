@@ -63,7 +63,8 @@ const Login = ({ loginAction, login }) => {
             <div className="form-group mt-3">
               {submiting ? (
                 <button className="btn btn-secondary" type="button" disabled>
-                  Login
+                  <span className="spinner-border text-dark mr-2" />
+                  Logging in
                 </button>
               ) : (
                 <button
