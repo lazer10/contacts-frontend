@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,17 +9,18 @@ const Login = ({ loginAction, login }) => {
   const [submiting, setSubmiting] = useState(false);
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     if (login.status === 'success') {
       setSubmiting(false);
       setUserName('');
       setPassword('');
-      console.log(login);
       localStorage.setItem('CONTACTS_TEST', login.token);
     }
-    if (login.status === 'failed') {
+    if (login.status === 'error') {
       setSubmiting(false);
+      return setErrors([login.error.message]);
     }
   }, [login]);
 
@@ -28,6 +30,7 @@ const Login = ({ loginAction, login }) => {
       username,
       password,
     };
+    setErrors([]);
     setSubmiting(true);
     loginAction(data);
   };
@@ -35,6 +38,7 @@ const Login = ({ loginAction, login }) => {
   return (
     <div>
       <h3 className="text-center text-dark mt-3">Admin Login</h3>
+
       <div className="d-flex justify-content-center">
         <div className="text-center w-50">
           <form action="">
@@ -75,6 +79,23 @@ const Login = ({ loginAction, login }) => {
                   Login
                 </button>
               )}
+              {errors.map((error, index) => (
+                <div
+                  className="alert alert-danger py-2 mt-2 font-smooth"
+                  role="alert"
+                  key={index}
+                  style={{ fontSize: 13 }}
+                >
+                  {error}
+                  <button
+                    type="button"
+                    className="close"
+                    onClick={() => setErrors([])}
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              ))}
             </div>
           </form>
         </div>
