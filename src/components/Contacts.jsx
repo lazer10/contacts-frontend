@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import '../assets/styles/myContacts.scss';
 import fetchContactsAction from '../redux/actions/contacts/fetchContacts';
 import UpdateContact from '../components/UpdateContact';
+import DeleteContact from '../components/DeleteContact';
 
 const Contacts = ({ fetchContactsAction, fetchContacts }) => {
   const [status, setStatus] = useState('initial');
@@ -94,9 +95,7 @@ const Contacts = ({ fetchContactsAction, fetchContacts }) => {
                     />
                   </td>
                   <td>
-                    <button type="button" className="btn btn-danger">
-                      Delete
-                    </button>
+                    <DeleteContact refetch={refetch} id={contact._id} />
                   </td>
                 </tr>
               ))}

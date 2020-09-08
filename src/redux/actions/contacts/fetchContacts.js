@@ -3,12 +3,16 @@ import {
   FETCH_CONTACTS_SUCCESS,
   FETCH_CONTACTS_FAILED,
   CLEAR_UPDATE_CONTACTS,
+  CLEAR_DELETE_CONTACTS,
 } from '../../actionTypes';
 
 export default () => async (dispatch) => {
   try {
     dispatch({
       type: CLEAR_UPDATE_CONTACTS,
+    });
+    dispatch({
+      type: CLEAR_DELETE_CONTACTS,
     });
     const response = await axios.get('/contacts', config);
     const {
