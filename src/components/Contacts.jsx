@@ -45,7 +45,11 @@ const Contacts = ({ fetchContactsAction, fetchContacts }) => {
         data = <>{children}</>;
         break;
       case 'fetching':
-        data = <h3>Loading...</h3>;
+        data = (
+          <div className="text-center mt-4">
+            <span className="spinner-border text-dark" />
+          </div>
+        );
         break;
       case 'no_data':
         data = <h3>No data found</h3>;
