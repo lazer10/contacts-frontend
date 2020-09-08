@@ -37,7 +37,7 @@ const Types = ({
     }
     return undefined;
   }, [updatedContacts]);
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !address || !phoneNumber) {
       return setErrors('All fields are required!');
