@@ -1,24 +1,19 @@
 import axios, { config } from '..';
 import {
-  FETCH_CONTACTS_SUCCESS,
-  FETCH_CONTACTS_FAILED,
-  CLEAR_UPDATE_CONTACTS,
+  UPDATE_CONTACTS_SUCCESS,
+  UPDATE_CONTACTS_FAILED,
 } from '../../actionTypes';
 
-export default () => async (dispatch) => {
+export default (body, id) => async (dispatch) => {
   try {
-    dispatch({
-      type: CLEAR_UPDATE_CONTACTS,
-    });
-    const response = await axios.get('/contacts', config);
+    const response = await axios.put(`/contacts/${id}`, body, config);
     const {
-      data: { message, data },
+      data: { message },
     } = response;
 
     dispatch({
-      type: FETCH_CONTACTS_SUCCESS,
+      type: UPDATE_CONTACTS_SUCCESS,
       message,
-      results: data,
     });
   } catch (err) {
     let error = {};
@@ -33,7 +28,7 @@ export default () => async (dispatch) => {
         message: err.message,
       };
     }
-    dispatch({ type: FETCH_CONTACTS_FAILED, error });
+    dispatch({ type: UPDATE_CONTACTS_FAILED, error });
     console.log(err);
   }
 };

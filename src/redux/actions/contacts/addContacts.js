@@ -5,7 +5,7 @@ import {
 
  export default (body) => async (dispatch) => {
      try {
-         const response = await axios.post('/contacts/new',body, config);
+         const response = await axios.post('/contacts/new', body, config);
          const { data: { message } } = response;
 
          dispatch({

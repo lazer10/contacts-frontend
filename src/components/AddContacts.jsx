@@ -9,6 +9,7 @@ import addContactsAction from '../redux/actions/contacts/addContacts';
 const AddContacts = ({ addContactsAction, addContacts }) => {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [address, setAddress] = useState('');
 
   useEffect(() => {
     if (addContacts.status === 'success') {
@@ -26,7 +27,7 @@ const AddContacts = ({ addContactsAction, addContacts }) => {
     const data = {
       name,
       phone_number: phoneNumber,
-      address: 'Bigogwe',
+      address,
     };
     addContactsAction(data);
   };
@@ -55,6 +56,18 @@ const AddContacts = ({ addContactsAction, addContacts }) => {
                 setPhoneNumber(e.target.value);
               }}
               value={phoneNumber}
+            />
+          </div>
+
+          <div className="form-group mt-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter address"
+              onChange={(e) => {
+                setAddress(e.target.value);
+              }}
+              value={address}
             />
           </div>
           <div className="form-group mt-3">
