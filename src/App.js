@@ -8,6 +8,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import Home from './views/Home';
 import MyContacts from './views/MyContatcs';
 import AddContacts from './views/AddContact';
+import AdminDashboard from './views/AdminDashboard';
 import Login from './views/Login';
 import store from './redux/store';
 
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/my-contacts" component={MyContacts} />
           <Route exact path="/add-contact" component={AddContacts} />
+          <Route exact path="/admin" component={AdminDashboard} />
           <Route exact path="/admin/login" component={Login} />
         </Switch>
       </Router>

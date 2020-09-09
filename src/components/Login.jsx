@@ -13,10 +13,12 @@ const Login = ({ loginAction, login }) => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
   const [isLoginPasswordShown, setIsLoginPasswordShown] = useState(false);
-  // const [successfulLoginMessage, setSuccessfulLoginMessage] = useState('');
 
   const history = useHistory();
-  console.log(history);
+
+  useEffect(() => {
+    if (localStorage.getItem('CONTACTS_TEST')) return history.push('/admin');
+  });
 
   useEffect(() => {
     if (login.status === 'success') {
