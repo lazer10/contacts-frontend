@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import loginAction from '../redux/actions/admin/login';
@@ -14,12 +15,16 @@ const Login = ({ loginAction, login }) => {
   const [isLoginPasswordShown, setIsLoginPasswordShown] = useState(false);
   // const [successfulLoginMessage, setSuccessfulLoginMessage] = useState('');
 
+  const history = useHistory();
+  console.log(history);
+
   useEffect(() => {
     if (login.status === 'success') {
       setSubmiting(false);
       setUserName('');
       setPassword('');
       localStorage.setItem('CONTACTS_TEST', login.token);
+      return history.push('/admin');
     }
     if (login.status === 'error') {
       setSubmiting(false);
