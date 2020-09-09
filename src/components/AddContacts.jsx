@@ -10,6 +10,7 @@ const AddContacts = ({ addContactsAction, addContacts }) => {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [address, setAddress] = useState('');
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     if (addContacts.status === 'success') {
@@ -17,8 +18,7 @@ const AddContacts = ({ addContactsAction, addContacts }) => {
       setName('');
     }
     if (addContacts.status === 'error') {
-      // setStatus('error');
-      console.log(addContacts.error);
+      return setErrors([addContacts.error.message]);
     }
   }, [addContacts]);
 
@@ -29,6 +29,7 @@ const AddContacts = ({ addContactsAction, addContacts }) => {
       phone_number: phoneNumber,
       address,
     };
+    setErrors([]);
     addContactsAction(data);
   };
 
@@ -78,6 +79,23 @@ const AddContacts = ({ addContactsAction, addContacts }) => {
             >
               Add Contact
             </button>
+            {errors.map((error, index) => (
+              <div
+                className="alert alert-danger py-2 mt-2 font-smooth"
+                role="alert"
+                key={index}
+                style={{ fontSize: 13 }}
+              >
+                {error}
+                <button
+                  type="button"
+                  className="close"
+                  onClick={() => setErrors([])}
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            ))}
           </div>
         </form>
       </div>
