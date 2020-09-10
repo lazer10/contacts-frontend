@@ -35,7 +35,6 @@ const Types = ({
     setStatus('deleting');
     return deleteContacts(id);
   };
-  console.log(id);
   return (
     <>
       <button

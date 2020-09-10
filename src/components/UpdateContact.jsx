@@ -58,7 +58,6 @@ const Types = ({
     setErrors('');
     return setStatus('submitting');
   };
-  console.log(id);
   return (
     <>
       <button
