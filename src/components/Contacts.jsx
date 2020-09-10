@@ -11,6 +11,8 @@ import DeleteContact from '../components/DeleteContact';
 const Contacts = ({ fetchContactsAction, fetchContacts }) => {
   const [status, setStatus] = useState('initial');
   const [data, setData] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+
   useEffect(() => {
     if (status === 'initial') {
       fetchContactsAction();
@@ -37,6 +39,13 @@ const Contacts = ({ fetchContactsAction, fetchContacts }) => {
     fetchContactsAction();
     setStatus('fetching');
   };
+
+  const contacts =
+    data && searchValue
+      ? data.filter((contact) =>
+          contact.name.toUpperCase().includes(searchValue.toUpperCase())
+        )
+      : data;
 
   const DisplayData = ({ children }) => {
     let data;
@@ -73,6 +82,24 @@ const Contacts = ({ fetchContactsAction, fetchContacts }) => {
       <h4 className="text-center text-light bg-dark mb-0 pb-1">
         Contacts List
       </h4>
+
+      <div className="col-4 mt-4">
+        <form>
+          <div className="form-group">
+            <input
+              type="text"
+              id="searchValue"
+              className="form-control adminAuthInput"
+              placeholder="Search contact"
+              onChange={(e) => {
+                setSearchValue(e.target.value);
+              }}
+              value={searchValue}
+            />
+          </div>
+        </form>
+      </div>
+
       <DisplayData>
         <div className="table-1">
           <table className="table table-stripped">
@@ -86,7 +113,7 @@ const Contacts = ({ fetchContactsAction, fetchContacts }) => {
               </tr>
             </thead>
             <tbody>
-              {data.map((contact) => (
+              {contacts.map((contact) => (
                 <tr key={contact._id}>
                   <td>{contact.name}</td>
                   <td>{contact.phone_number}</td>
