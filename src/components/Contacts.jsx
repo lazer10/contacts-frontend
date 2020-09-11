@@ -133,6 +133,11 @@ const Contacts = ({ fetchContactsAction, fetchContacts }) => {
             </tbody>
           </table>
         </div>
+        {contacts.length === 0 && searchValue ? (
+          <div className="text-center text-dark">
+            <h3>No Search Results Found</h3>
+          </div>
+        ) : null}
       </DisplayData>
     </div>
   ); // End of Return
