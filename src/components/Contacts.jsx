@@ -43,7 +43,7 @@ const Contacts = ({ fetchContactsAction, fetchContacts }) => {
   const contacts =
     data && searchValue
       ? data.filter((contact) =>
-          contact.name.toUpperCase().includes(searchValue.toUpperCase())
+          contact.name.toUpperCase().includes(searchValue.toUpperCase()) || contact.address.toUpperCase().includes(searchValue.toUpperCase())
         )
       : data;
 
